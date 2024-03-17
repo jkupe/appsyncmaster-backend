@@ -1,12 +1,14 @@
-
-const DynamoDB = require('aws-sdk/clients/dynamodb'); //more efficient to just import client (cold start)
-const DocumentClient = new DynamoDB.DocumentClient();
+const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
+const { DynamoDBDocumentClient, PutCommand } = require("@aws-sdk/lib-dynamodb");
 const Chance = require('chance');
 const chance = new Chance();
 
 const { USERS_TABLE } = process.env
 
 module.exports.handler = async (event) => {
+  const ddbClient = new DynamoDBClient({});
+  const docClient = DynamoDBDocumentClient.from(ddbClient);
+
   if (event.triggerSource === 'PostConfirmation_ConfirmSignUp') {
     const name = event.request.userAttributes.name;
     const suffix = chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true });
@@ -22,10 +24,12 @@ module.exports.handler = async (event) => {
       likesCount: 0,
     }
 
-    await DocumentClient.put({
+    await docClient.send(new PutCommand({
       TableName: USERS_TABLE,
       Item: user
-    }).promise();
+    }));
+
+    return event;
     
   } else {
     return event;

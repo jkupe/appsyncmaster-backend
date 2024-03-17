@@ -30,7 +30,7 @@ appSync: ${file(serverless.appsync.yml)}
 
 functions:
   confirmUserSignup:
-    handler: function/confirm-user-signup.handler
+    handler: functions/confirm-user-signup.handler
     environment:
       USERS_TABLE: !Ref UsersTable
     iamRoleStatements:
@@ -105,6 +105,9 @@ resources:
 
     CognitoUserPoolId:
       Value: !Ref CognitoUserPool
+
+    WebCogntioUserPoolClientId:
+      Value: !Ref WebUserPoolClient
 
   
 

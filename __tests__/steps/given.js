@@ -6,7 +6,8 @@ const a_random_user = () => {
   const suffix = chance.suffix({ length: 4, pool: 'abcdefghijklmnopqrstuvwxyz' })
   const name = `${firstName} ${lastName} ${suffix}`
   const password = chance.string({ length: 8 })
-  const email = `${firstName}-${lastName}-${suffix}@appsyncmasterclass.com`
+  const email = `${firstName}-${lastName}@appsyncmasterclass.com`
+
   return { name, password, email }
 }
 
