@@ -32,7 +32,8 @@ functions:
   confirmUserSignup:
     handler: functions/confirm-user-signup.handler
     environment:
-      USERS_TABLE: !Ref UsersTable
+      USERS_TABLE: 
+        Ref: UsersTable
     iamRoleStatements:
       - Effect: Allow
         Action: dynamodb:PutItem
@@ -83,7 +84,8 @@ resources:
       Type: AWS::Lambda::Permission
       Properties:
         Action: lambda:InvokeFunction
-        FunctionName: !Ref ConfirmUserSignupLambdaFunction
+        FunctionName: 
+          Ref: ConfirmUserSignupLambdaFunction
         Principal: cognito-idp.amazonaws.com
         SourceArn: !GetAtt CognitoUserPool.Arn
         
@@ -104,11 +106,13 @@ resources:
       Value: ${self:custom.region}
 
     CognitoUserPoolId:
-      Value: !Ref CognitoUserPool
+      Value: 
+        Ref: CognitoUserPool
 
     WebCogntioUserPoolClientId:
-      Value: !Ref WebUserPoolClient
+      Value: 
+        Ref: WebUserPoolClient
 
   
-
+configValidationMode: error
     

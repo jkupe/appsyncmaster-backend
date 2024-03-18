@@ -1,8 +1,23 @@
 name: appsyncmasterclass
 schema: schema.api.graphql
-authentication: 
+authentication:
   type: AMAZON_COGNITO_USER_POOLS
   config:
-    awsRegion: us-east-1
+    awsRegion: ${self:provider.region}
     defaultAction: ALLOW
-    userPoolId: !Ref CognitoUserPool
+    userPoolId:
+      Ref: CognitoUserPool
+
+dataSources:
+  UsersTable:
+    type: AMAZON_DYNAMODB
+    config:
+      tableName:
+        Ref: UsersTable
+
+resolvers:
+  Query.getMyProfile:
+    functions:
+      - dataSource: UsersTable
+        request: mapping-templates/Query.getMyProfile.request.vtl
+        response: mapping-templates/Query.getMyProfile.response.vtl
