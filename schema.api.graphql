@@ -44,7 +44,7 @@ type Mutation {
 }
 
 input ProfileInput {
-  name: String
+  name: String!
   imageUrl: AWSURL
   backgroundImageUrl: AWSURL
   bio: String
@@ -106,7 +106,7 @@ type OtherProfile implements IProfile {
   tweetsCount: Int!
   likesCount: Int!
   following: Boolean!
-  followed: Boolean!
+  followedBy: Boolean!
 }
 
 interface ITweet {
