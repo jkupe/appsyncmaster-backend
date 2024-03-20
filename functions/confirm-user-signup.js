@@ -10,13 +10,13 @@ module.exports.handler = async (event) => {
   const docClient = DynamoDBDocumentClient.from(ddbClient);
 
   if (event.triggerSource === 'PostConfirmation_ConfirmSignUp') {
-    const name = event.request.userAttributes.name;
+    const name = event.request.userAttributes['name'];
     const suffix = chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true });
-    const screenName = `${name.replace(/[^a-zA-Z0-9]/g, "")}${suffix}`
+    const screenname = `${name.replace(/[^a-zA-Z0-9]/g, "")}${suffix}`
     const user = {
       id: event.userName,
       name,
-      screenName,
+      screenname,
       createdAt: new Date().toISOString(),
       followersCount: 0,
       followingCount: 0,

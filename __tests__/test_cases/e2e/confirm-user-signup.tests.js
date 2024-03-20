@@ -16,12 +16,12 @@ describe('When a user signs up', () => {
       followersCount: 0,
       followingCount: 0,
       tweetsCount: 0,
-      likesCount: 0
+      likesCount: 0,
     })
 
     const [firstName, lastName] = name.split(' ')
-    expect(ddbUser.screenName).toContain(firstName)
-    expect(ddbUser.screenName).toContain(lastName)
+    expect(ddbUser.screenname).toContain(firstName)
+    expect(ddbUser.screenname).toContain(lastName)
   })
 })
 
