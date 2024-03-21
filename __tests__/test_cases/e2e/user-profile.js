@@ -1,5 +1,6 @@
 const given = require('../../steps/given')
 const when = require('../../steps/when')
+const chance = require('chance').Chance()
 
 describe('Given an authenticated user', () => {
   let user
@@ -36,8 +37,9 @@ describe('Given an authenticated user', () => {
   })
 
   it('The user can edit their profile with editMyProfile', async () => {
+    const newName = chance.first()
     const newProfile = {
-      name: 'Jest',
+      name: newName,
       imageUrl: null,
       backgroundImageUrl: null,
       bio: 'test',
@@ -49,7 +51,7 @@ describe('Given an authenticated user', () => {
 
     expect(profile).toMatchObject({
       id: user.username,
-      name: 'Jest',
+      name: newName,
       imageUrl: null,
       backgroundImageUrl: null,
       bio: 'test',
