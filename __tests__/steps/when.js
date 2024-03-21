@@ -73,7 +73,8 @@ const we_invoke_an_appsync_template = (templatePath, context) => {
     valueMapper: velocityMapper.map, 
     escape: false 
   })
-  
+  const renderedOutput = compiler.render(context);
+  console.log(renderedOutput);
   return JSON.parse(compiler.render(context))
 }
 
